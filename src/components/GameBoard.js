@@ -1,6 +1,6 @@
 import React from 'react';
 import Circle from './circle'
-import {Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import {_} from 'underscore';
 import COLOR from '../shared/color';
 
@@ -26,6 +26,7 @@ class GameBoard extends React.Component{
         this.ScanForWin = this.ScanForWin.bind(this)
         this.SetPlayerOne = this.SetPlayerOne.bind(this)
         this.ScanForTie = this.ScanForTie.bind(this)
+        this.toggle = this.toggle.bind(this)
     }
     
     SetupBoardState(column, row){
@@ -49,7 +50,8 @@ class GameBoard extends React.Component{
 
             if (results) {
                 this.setState({
-                    gameOver: true
+                    gameOver: true,
+                    gameOverModal: true
                 })
                 return;
             }
@@ -63,6 +65,7 @@ class GameBoard extends React.Component{
         if (results === -1) 
         this.setState({
             gameOver: true,
+            gameOverModal: true,
             isTie: true
         })
     }
@@ -189,6 +192,11 @@ class GameBoard extends React.Component{
         })
     }
 
+    toggle() {
+        this.setState(prevState => ({
+          gameOverModal: !prevState.gameOverModal
+        }));
+      }
     componentDidUpdate(){
         if(!this.state.gameOver)
             this.ScanForTie()
@@ -228,7 +236,7 @@ class GameBoard extends React.Component{
                 </Modal>
         )
         const gameOver = (
-            <Modal isOpen={this.state.gameOver}>
+            <Modal isOpen={this.state.gameOverModal} toggle={this.toggle}>
                 <ModalBody>
                     <div>
                         <h3>
@@ -236,6 +244,14 @@ class GameBoard extends React.Component{
                         </h3>
                     </div>
                 </ModalBody>
+                <ModalFooter>
+                    <div className="row">
+                        <div className="col-md-12">
+                        <Button color="primary" onClick={this.toggle} block>Ok</Button>
+                        </div>
+                    </div>
+                    
+                </ModalFooter>
             </Modal>
     )
         
