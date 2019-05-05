@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+.circle{
+  border-style: solid;
+  border-width: 2px;
+  padding: 30px;
+  border-radius: 50%;
+
+  margin: 10px;
+  display: inline-block
+
+}
+
+.circle-red{
+  background-color:red;
+}
+.circle-black{
+  background-color:black;
+}
+.gameboard{
+  border-style: solid;
+  border-width: 2px;
+  display: inline-block;
+}
+.spacing{
+  margin-top: 200px
+}
